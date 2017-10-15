@@ -7,9 +7,14 @@ class IO:
         self.headers=None
 
     def read(self):
+        songs=[]
+
         with open(self.csvfile,"r") as csvfile:
-            rows = csv.DictReader(csvfile)
-        return rows
+            rows = csv.DictReader(csvfile,delimiter=",")
+            for row in rows:
+                songs.append(row)
+                #print row["id"]
+        return songs
 
     def getFieldnames(self):
         with open(self.csvfile, "r") as csvfile:
@@ -17,8 +22,13 @@ class IO:
             headers = rows.fieldnames
         return headers
 
-    def write(self,rows, fieldnames):
-        with open(self.csvfile, "rw") as csvfile:
-            w=csv.DictWriter(csvfile,fieldnames)
-            w.writeheader()
-            w.writerows(rows)
+
+    def write(self, rows,fnames):
+        f = open(self.csvfile, 'w')
+        with f:
+            #fnames = ['first_name', 'last_name']
+            writer = csv.DictWriter(f, fieldnames=fnames)
+            writer.writeheader()
+            for row in rows:
+                writer.writerow(row)
+
