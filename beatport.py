@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 # html.audiopreload body div#pjax-target div#pjax-inner-wrapper.pjax-inner-wrapper section.page-content-container main.interior div.full-col div.bucket.tracks.top-hundred-tracks ul.bucket-items.ec-bucket li.bucket-item.ec-item.track
+#li.bucket-item.ec-item.track div.buk-track-meta-parent p.buk-track-released
 import lxml.html
 import os
 import urllib2
 
+from IO import *
 from Song import *
 from common import *
 
 cache_dir="cache"
+fname="files/songs.csv"
 
 def getList(url):
     """
@@ -42,24 +45,40 @@ def checkValidSong(track):
     return res
 
 
+def readcsv():
+
+    if os.path.isfile(fname):
+        io=IO(fname)
+        return io.read()
+    return []
+
+
+def updateSong(songsCsv, song):
+    id0=song["id"]
+    for songcsv in songsCsv:
+        if id0==songcsv["id"]:
+            song.update(songcsv)
+    return song
 
 
 
 if __name__ == '__main__':
     verbose=True
-    url='https://www.beatport.com/top-100'
+    psongs=readcsv()
 
+    url='https://www.beatport.com/top-100'
     tracks = getList(url)
-    today = day(datetime.datetime.today());
-    # pprint.pprint (tracks)
+
+    headers=set({})
     songs=[]
     for track in tracks:
         if checkValidSong(track):
             song = fromDOM(track)
+            headers=headers.union(set(song.keys()))
             songs.append(song)
-            if verbose:
-                print song["id"]+" "+song["title"]+" -> retrieved"
-                
+    io=IO(fname)
+    io.write(songs,headers)
+
 
 
 

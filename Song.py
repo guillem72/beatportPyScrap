@@ -1,7 +1,7 @@
 from common import *
 
-xpathsStr = {"title": "data-ec-name", "author": "data-ec-dl" \
-    , "brand": "data-ec-brand", "genre": "data-ec-d3"}
+xpathsStr = {"title": "data-ec-name", "author": "data-ec-d1" \
+    , "brand": "data-ec-brand", "genre": "data-ec-d3", "remixers": "data-ec-d2"}
 xpathsInt = {"id": "data-ec-id", today(): "data-ec-position"}
 
 
@@ -26,6 +26,11 @@ def getIntValue(domElement, attrib):
     else:
         return "NA"
 
+def getRealese(domElement):
+    #p.buk-track-released
+    #print vars(domElement)
+    # div[3] / p[6]
+    return str(domElement.xpath('div[3] / p[6]')[0].text_content())
 
 def fromDOM(domElement):
     song = {}
@@ -36,7 +41,7 @@ def fromDOM(domElement):
 
     for field in names2:
         song[field] = getStrValue(domElement, xpathsInt[field])
-
+    song["release"]=getRealese(domElement)
 
 
     return song
