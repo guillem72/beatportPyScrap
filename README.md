@@ -8,6 +8,7 @@ Another possibility is to study the evolution of
 the popularity of the songs and brands
 
 ##Files
-The result file is songs.csv, placed in files directory
+The result file is songs.csv, placed in files directory:
+<https://github.com/guillem72/beatportPyScrap/raw/master/files/songs.csv>
 
 
