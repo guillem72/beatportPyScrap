@@ -1,10 +1,14 @@
 import csv
-class IO:
 
+import os
+
+
+class IO:
+    minHeaders = ["title", "author", "brand", "genre", "id","remixers", "released"]
 
     def __init__(self,csvfile):
         self.csvfile=csvfile
-        self.headers=None
+
 
     def read(self):
         songs=[]
@@ -17,10 +21,12 @@ class IO:
         return songs
 
     def getFieldnames(self):
-        with open(self.csvfile, "r") as csvfile:
-            rows = csv.DictReader(csvfile)
-            headers = rows.fieldnames
-        return headers
+        if os.path.isfile(self.csvfile):
+            with open(self.csvfile, "r") as csvfile:
+                rows = csv.DictReader(csvfile)
+                headers = rows.fieldnames
+            return headers
+        return IO.minHeaders
 
 
     def write(self, rows,fnames):
@@ -30,5 +36,8 @@ class IO:
             writer = csv.DictWriter(f, fieldnames=fnames)
             writer.writeheader()
             for row in rows:
+                for field in fnames:
+                   if not field in row:
+                       row[field]="NA"
                 writer.writerow(row)
 
