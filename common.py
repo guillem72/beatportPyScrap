@@ -5,6 +5,7 @@ import datetime
 def today():
     #return "15-10-2017"
     #return "16-10-2017"
+    #return "17-10-2017"
     return day(datetime.datetime.today());
 
 def day(dt):

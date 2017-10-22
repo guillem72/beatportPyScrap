@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fromdom',['fromDOM',['../d8/d20/Song_8py.html#ab77bdc69efbaf755976785541f79742d',1,'Song']]]
+  ['checkvalidsong',['checkValidSong',['../de/dfc/beatport_8py.html#a540a4482154be6dfbd0443c3ea039ba5',1,'beatport']]]
 ];

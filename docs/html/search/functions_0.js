@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['checkvalidsong',['checkValidSong',['../de/dfc/beatport_8py.html#a540a4482154be6dfbd0443c3ea039ba5',1,'beatport']]]
+  ['adsentiment',['adSentiment',['../d6/d0a/sentiment_8py.html#aa3071d258fe938d7a8cf1a74aefd58db',1,'sentiment']]]
 ];

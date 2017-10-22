@@ -14,6 +14,7 @@ import urllib2
 from IO import *
 from Song import *
 from common import *
+from sentiment import *
 
 '''
 @param cache_dir the directory were the webpages are stored.
@@ -103,11 +104,16 @@ if __name__ == '__main__':
     headers=io.getFieldnames()
     if today() not in headers:
         headers.append(today())
+    if 'polarity' not in headers:
+        headers.append('polarity')
+    if 'subjectivity' not in headers:
+        headers.append('subjectivity')
     songs=[]
     for track in tracks:
         if checkValidSong(track):
             song0 = fromDOM(track)
             song=updateSong(psongs,song0)
+            song=adSentiment(song)
             songs.append(song)
 
     io.write(songs,headers)
